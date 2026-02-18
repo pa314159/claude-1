@@ -1,0 +1,6 @@
+main
+test_plugin
+plugins/
+*.o
+*.a
+*.so
