@@ -46,3 +46,33 @@ void load_plugins_from_dir(const char *dir) {
 
     closedir(d);
 }
+
+void list_plugins(const char *dir) {
+    DIR *d = opendir(dir);
+    if (!d) {
+        fprintf(stderr, "opendir: cannot open '%s'\n", dir);
+        return;
+    }
+
+    struct dirent *entry;
+    while ((entry = readdir(d)) != NULL) {
+        const char *name = entry->d_name;
+        size_t len = strlen(name);
+        if (len < 4 || strcmp(name + len - 3, ".so") != 0)
+            continue;
+
+        char path[1024];
+        snprintf(path, sizeof(path), "%s/%s", dir, name);
+
+        void *handle = dlopen(path, RTLD_LAZY);
+        if (!handle) continue;
+
+        Plugin *p = dlsym(handle, "plugin");
+        if (p)
+            printf("%s\n", p->name);
+
+        dlclose(handle);
+    }
+
+    closedir(d);
+}
