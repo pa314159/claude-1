@@ -37,9 +37,10 @@ make clean  # remove build artifacts
 ## Usage
 
 ```sh
-./main               # load all plugins from ./plugins/
-./main hello         # load ./plugins/hello_plugin.so
-./main goodbye       # load ./plugins/goodbye_plugin.so
+./main               # load and run all plugins from ./plugins/
+./main -l            # list available plugins without running them
+./main --list        # same as -l
+./main hello         # load and run ./plugins/hello_plugin.so
 ```
 
 ## Adding a Plugin
