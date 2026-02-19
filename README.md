@@ -1,6 +1,6 @@
 # Plugin Loader
 
-A minimal C plugin system using dynamic loading (`dlopen`/`dlsym`).
+A minimal C plugin system using dynamic loading (`dlopen`/`dlsym`). Built with [Claude](https://claude.ai/claude-code).
 
 ## Structure
 
