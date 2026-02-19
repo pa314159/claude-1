@@ -12,13 +12,13 @@ static int failed = 0;
 
 int main(void) {
     TEST("load valid plugin (hello)",
-         load_plugin("./plugins/hello_plugin.so") == 0);
+         load_plugin("./plugins/hello.so") == 0);
 
     TEST("load valid plugin (goodbye)",
-         load_plugin("./plugins/goodbye_plugin.so") == 0);
+         load_plugin("./plugins/goodbye.so") == 0);
 
     TEST("load missing plugin returns -1",
-         load_plugin("./plugins/nonexistent_plugin.so") == -1);
+         load_plugin("./plugins/nonexistent.so") == -1);
 
     TEST("load invalid path returns -1",
          load_plugin("./plugins/not_a_plugin.so") == -1);

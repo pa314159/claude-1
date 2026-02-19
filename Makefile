@@ -11,7 +11,7 @@ $(TARGET): main.c loader.c loader.h plugin.h
 	$(CC) $(CFLAGS) -o $(TARGET) main.c loader.c -ldl
 
 $(TEST): plugins/test.c loader.c loader.h plugin.h
-	$(CC) $(CFLAGS) -o $(TEST) plugins/test.c loader.c -ldl
+	$(CC) $(CFLAGS) -I. -o $(TEST) plugins/test.c loader.c -ldl
 
 test: $(TEST) $(PLUGINS)
 	./$(TEST)
