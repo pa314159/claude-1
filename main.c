@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 
     if (optind < argc) {
         char path[1024];
-        snprintf(path, sizeof(path), "./plugins/%s_plugin.so", argv[optind]);
+        snprintf(path, sizeof(path), "./plugins/%s.so", argv[optind]);
         load_plugin(path);
     } else {
         load_plugins_from_dir("./plugins");
