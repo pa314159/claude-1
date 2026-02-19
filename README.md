@@ -9,10 +9,11 @@ A minimal C plugin system using dynamic loading (`dlopen`/`dlsym`). Built with [
 ├── main.c              # Entry point
 ├── loader.c/h          # Plugin loading logic
 ├── plugin.h            # Plugin interface
-├── hello_plugin.c      # Example plugin
-├── goodbye_plugin.c    # Example plugin
-├── test_plugin.c       # Unit tests
-└── Makefile
+├── CMakeLists.txt
+└── plugins/
+    ├── hello.c         # Example plugin
+    ├── goodbye.c       # Example plugin
+    └── test.c          # Unit tests
 ```
 
 ## Plugin Interface
@@ -29,23 +30,23 @@ typedef struct {
 ## Build
 
 ```sh
-make        # build main and plugins
-make test   # build and run unit tests
-make clean  # remove build artifacts
+cmake -B build
+cmake --build build
+ctest --test-dir build   # run unit tests
 ```
 
 ## Usage
 
 ```sh
-./main               # load and run all plugins from ./plugins/
-./main -l            # list available plugins without running them
-./main --list        # same as -l
-./main hello         # load and run ./plugins/hello_plugin.so
+./build/main             # load and run all plugins from ./build/plugins/
+./build/main -l          # list available plugins without running them
+./build/main --list      # same as -l
+./build/main hello       # load and run ./build/plugins/hello.so
 ```
 
 ## Adding a Plugin
 
-1. Create `myplugin_plugin.c`:
+1. Create `plugins/myplugin.c`:
 
 ```c
 #include <stdio.h>
@@ -61,11 +62,14 @@ Plugin plugin = {
 };
 ```
 
-2. Add to `Makefile`:
+2. Add to `CMakeLists.txt`:
 
-```makefile
-plugins/myplugin_plugin.so: myplugin_plugin.c plugin.h | plugins
-    $(CC) $(CFLAGS) -shared -fPIC -o $@ myplugin_plugin.c
+```cmake
+add_library(myplugin SHARED plugins/myplugin.c)
+set_target_properties(myplugin PROPERTIES
+    PREFIX ""
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/plugins
+)
 ```
 
-3. Add to `PLUGINS` in the Makefile, then run `make`.
+3. Rebuild with `cmake --build build`.
