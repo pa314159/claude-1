@@ -12,7 +12,7 @@ int load_plugin(const char *path) {
         return -1;
     }
 
-    Plugin *p = dlsym(handle, "plugin");
+    plugin_t *p = dlsym(handle, "plugin");
     if (!p) {
         fprintf(stderr, "dlsym: %s\n", dlerror());
         dlclose(handle);
@@ -67,7 +67,7 @@ void list_plugins(const char *dir) {
         void *handle = dlopen(path, RTLD_LAZY);
         if (!handle) continue;
 
-        Plugin *p = dlsym(handle, "plugin");
+        plugin_t *p = dlsym(handle, "plugin");
         if (p)
             printf("%s\n", p->name);
 

@@ -4,6 +4,6 @@
 typedef struct {
     const char *name;
     void (*run)(void);
-} Plugin;
+} plugin_t;
 
 #endif

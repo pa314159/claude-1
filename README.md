@@ -24,7 +24,7 @@ Each plugin is a shared library that exports a single `Plugin` symbol:
 typedef struct {
     const char *name;
     void (*run)(void);
-} Plugin;
+} plugin_t;
 ```
 
 ## Build
@@ -56,7 +56,7 @@ static void run(void) {
     printf("Hello from myplugin!\n");
 }
 
-Plugin plugin = {
+plugin_t plugin = {
     .name = "myplugin",
     .run  = run,
 };
