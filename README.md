@@ -56,7 +56,7 @@ static void run(void) {
     printf("Hello from myplugin!\n");
 }
 
-plugin_t plugin = {
+const plugin_t plugin = {
     .name = "myplugin",
     .run  = run,
 };
